@@ -1,0 +1,29 @@
+%section.content-header
+  %h1
+    Images 
+    %small under Album
+  %ol.breadcrumb
+    %li
+      %a
+        %i.fa.fa-dashboard
+        Home
+    %li.active Album Image Listing
+%hr
+%section.content
+  .box.box-success
+    .box-body
+      .post
+        .user-block
+          %img.img-circle.img-bordered-sm{:alt => "user image", :src => "/assets/admin-user.png"}
+            %span.username
+              .a
+                = @album.user.name
+            %span.description 
+              = @album.name
+        .row.margin-bottom
+          - @images.each do |image|
+            .col-sm-3
+              .thumbnail
+                = image.name
+                = image_tag image.image, :style => "width:150px;height:150px"
+                = image.tag_line

@@ -1,0 +1,33 @@
+%section.content-header
+  %h1
+    All Portal Albums
+    %small Listing
+  %ol.breadcrumb
+    %li
+      %a
+        %i.fa.fa-dashboard
+        Home
+    %li.active Album Listing
+%hr
+%section.content
+  .box.box-success
+    .box-header
+      %h4
+        Albums
+    .box-body
+      - if @albums.empty?
+        %h4 No any Album created
+      - else
+        .table-responsive
+          %table.table.table-bordered.table-hover
+            %th Album Name
+            %th Album Owner
+            %th Created at
+            %th Show Images
+            - @albums.each do |album|
+              %tr
+                %td= album.name
+                %td= album.user.name
+                %td= album.user.created_at.strftime("%d-%m-%y")
+                %td
+                  = link_to 'View Album', all_images_albums_path(:id => album.id)

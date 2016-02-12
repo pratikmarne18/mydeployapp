@@ -1,0 +1,55 @@
+%section.content-header
+  %h1
+    Image
+    %small Uploads 
+  %ol.breadcrumb
+    %li
+      %a
+        %i.fa.fa-dashboard
+        Home
+    %li.active Image Upload
+%hr
+%section.content
+  .box.box-success
+    .box-header
+      %h4
+        Upload Images
+    .box-body
+      = form_for @image, :url => images_path, :method => :post, :html=>{:class => "form-horizontal", :id => "image_form"} do |f|
+        = f.hidden_field :album_id, :value => @album_id
+        .form-group
+          .col-md-2.col-md-offset-1
+            = f.label :name, :class => "control-label"
+          .col-md-4
+            = f.text_field :name, :class => "form-control"
+        .form-group
+          .col-md-2.col-md-offset-1
+            = f.label :tag_line, :class => "control-label"
+          .col-md-4
+            = f.text_field :tag_line, :class => "form-control"
+        .form-group
+          .col-xs-2.col-md-offset-1
+            = f.label :image, :class => "control-label"
+          .col-xs-4
+            = f.file_field :image,:class =>"form-control"
+        .form-group
+          .col-md-3.col-md-offset-1
+            = f.submit "Upload image", :class => "btn btn-sm btn-success"
+
+%section.content
+  .post
+    .user-block
+      %img.img-circle.img-bordered-sm{:alt => "user image", :src => "/assets/admin-user.png"}
+        %span.username
+          .a
+            = @album.user.name
+        %span.description 
+          = @album.name
+    .row.margin-bottom
+      - @images.each do |image|
+        .col-sm-3
+          .thumbnail
+            = image.name
+            = link_to '| Remove', image_path(:id => image.id, :album_id => @album.id), :method=>:delete, data: { confirm: 'Are you sure?' }
+            = image_tag image.image, :style => "width:100px;height:100px"
+            = image.tag_line

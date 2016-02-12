@@ -1,0 +1,23 @@
+%section.content-header
+  %h1
+    Gallary
+    %small Latest Uploaded Images
+  %ol.breadcrumb
+    %li
+      %a
+        %i.fa.fa-dashboard
+        Home
+    %li.active Gallary
+%hr
+%section.content
+  .post
+    .row.margin-bottom
+      - @all_images.each do |image|
+        .col-sm-3
+          .thumbnail
+            %b
+              = image.name
+              = "| #{image.album.user.name}"
+            = image_tag image.image, :style => "width:130px;height:100px"
+            %b
+              = image.tag_line
